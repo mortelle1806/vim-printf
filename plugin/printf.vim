@@ -41,10 +41,15 @@ function! s:Escape(str, chars) abort
   return s
 endfunction
 
+function! s:formatdirective(str) abort
+  return a:str == '%{}' ? a:str[1:] : a:str
+endfunction
+
 function! s:ParsePattern() abort
   let pattern = getbufvar('%', 'printf_pattern', 'printf("%d\n", %s);')
-  let dirpat = '[^%]\zs%\(\w\|\.\|+\)\+'
+  let dirpat = '[^%]\zs%\(\w\|\.\|{\|}\|+\)\+'
   let directive = matchstr(pattern, dirpat)
+  let directive = s:formatdirective(directive)
   let parts = map(
         \ split(pattern, dirpat, 1),
         \ 'substitute(v:val, "%%", "%", "")')

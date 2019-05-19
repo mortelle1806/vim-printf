@@ -100,6 +100,12 @@ function Test_PlusDirective()
   call assert_equal(15, col('.'))
 endfunction
 
+function Test_PythonFormat()
+  call XTest_Setup('x, y', 'print("%{}".format(%s))')
+  call assert_equal('print("x={}, y={}".format(x, y))', getline('.'))
+  call assert_equal(9, col('.'))
+endfunction
+
 function Test_Undo()
   call XTest_Setup('x')
   Printf
