@@ -52,7 +52,7 @@ function! s:ParsePattern() abort
   let directive = s:formatdirective(directive)
   let parts = map(
         \ split(pattern, dirpat, 1),
-        \ 'substitute(v:val, "%%", "%", "")')
+        \ 'substitute(v:val, "%%", "%", "g")')
 
   return {'prefix':    parts[0],
         \ 'middle':    parts[1],

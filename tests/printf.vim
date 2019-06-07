@@ -82,6 +82,12 @@ function Test_EscapePercentInPattern()
   call assert_equal(15, col('.'))
 endfunction
 
+function Test_EscapePercentTwiceInPattern()
+  call XTest_Setup('x', 'printf("%%s:%%d %d\n", __func__, __LINE__, %s);')
+  call assert_equal('printf("%s:%d x=%d\n", __func__, __LINE__, x);', getline('.'))
+  call assert_equal(17, col('.'))
+endfunction
+
 function Test_EscapeBackslashInPattern()
   call XTest_Setup('sizeof("\000")')
   call assert_equal('printf("sizeof(\"\\000\")=%d\n", sizeof("\000"));', getline('.'))
